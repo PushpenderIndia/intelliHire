@@ -7,7 +7,7 @@ class QuizGenerator:
         openai.api_key = openai_key
         self.job_role = job_role
         self.num_questions = num_questions
-        self.prompt = f"Generate a MCQ quiz of {self.num_questions} questions for \"{self.job_role}\", give output in json format, where questions are the keys and there value is a list of options. e.g. "+ "{'question 1?': ['optionA','optionB','optionC','optionD']}"
+        self.prompt = f"Generate a MCQ quiz of {self.num_questions} questions for \"{self.job_role}\", give output in json format, where questions are the keys and there value is a dictionary which contains two keys, 'options' & 'answer', 'options' key value should be list of options & 'answer' value should be correct option. e.g. "+ "{'question 1?': {'option':['optionA','optionB','optionC','optionD'], 'answer': 'optionA'}}"
 
     def generate_quiz(self):
         questions = {}

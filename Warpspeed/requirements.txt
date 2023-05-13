@@ -1,0 +1,4 @@
+json5
+openai
+pdfminer.six
+python-docx
