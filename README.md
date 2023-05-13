@@ -36,7 +36,7 @@ WarSpeed Hackathon By Lightspeed organised at 13 May 2023
 ## Features for Applicant
 - `Auto Matching resume to Job Opening`, No Need to Apply for Companies 
 - Predicting `Success Rate` for particular `Job Opening using ML Model`
-- Quiz Test for 
+- Quiz Test for Disabled (Blind)
 
 ## Hackathon Teammate
 <table>
