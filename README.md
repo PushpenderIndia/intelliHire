@@ -3,6 +3,8 @@ WarSpeed Hackathon By Lightspeed organised at 13 May 2023
 
 > intelliHIRE -  One Stop Solution For Hiring & Getting Hired!
 
+- Theme Color: Blue & White
+
 ## Features for Company
 
 - CV Filteration 
