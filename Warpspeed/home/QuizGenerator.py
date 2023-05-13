@@ -1,11 +1,13 @@
 import openai
-import json
+import json5
+import pprint 
 
 class QuizGenerator:
     def __init__(self, job_role, num_questions, openai_key):
         openai.api_key = openai_key
         self.job_role = job_role
         self.num_questions = num_questions
+        self.prompt = f"Generate a MCQ quiz of {self.num_questions} questions for \"{self.job_role}\", give output in json format, where questions are the keys and there value is a list of options. e.g. "+ "{'question 1?': ['optionA','optionB','optionC','optionD']}"
 
     def generate_quiz(self):
         questions = {}
@@ -14,16 +16,17 @@ class QuizGenerator:
 
     def _get_response(self):
         response = openai.Completion.create(
-            engine="davinci",
-            prompt=f"Generate a quiz for \"{self.job_role}\" with {self.num_questions} questions in json format, where the question is the key and the value is a list of options.",
-            max_tokens=1024,
+            engine="text-davinci-002",
+            prompt=self.prompt,
+            max_tokens=2048,
             n=1,
             stop=None,
-            temperature=0.7,
+            temperature=0.5,
         )
 
-        print(response.choices[0].text)
-        return json.loads(response.choices[0].text)
+        output_text = response.choices[0].text
+        json_obj = json5.loads(output_text)
+        return json_obj
     
 if __name__ == "__main__":
     job_role = "data scientist"
@@ -33,5 +36,4 @@ if __name__ == "__main__":
 
     quiz_generator = QuizGenerator(job_role, num_questions, openai_key)
     questions = quiz_generator.generate_quiz()
-
-    print(questions)
+    pprint.pprint(questions)
