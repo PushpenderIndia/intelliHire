@@ -1,6 +1,8 @@
 # WarSpeed
 WarSpeed Hackathon By Lightspeed organised at 13 May 2023
 
+> intelliHIRE -  One Stop Solution For Hiring & Getting Hired!
+
 ## Features for Company
 
 - CV Filteration 
@@ -27,9 +29,14 @@ WarSpeed Hackathon By Lightspeed organised at 13 May 2023
     - [ ] Syncing Vocal to 3D Model and Generating Video
     - [ ] Giving Chance to applicant to give answer in text or voice
 
+- Blockchain Powered Anti Impersonation System
+    - [ ] Generating Unqiue Identity for Each Applicant
+    - [ ] Storing & Verify it using Blockchain (Etherium)
+
 ## Features for Applicant
 - `Auto Matching resume to Job Opening`, No Need to Apply for Companies 
 - Predicting `Success Rate` for particular `Job Opening using ML Model`
+- Quiz Test for 
 
 ## Hackathon Teammate
 <table>
