@@ -15,11 +15,11 @@ body {
 body {
   background: linear-gradient(
       45deg,
-      hsl(205, 100%, 50%) 0%,
+      hsl(270.51, 76.92%, 55.88%),
       hsla(0, 0%, 0%, 0) 70%
     ),
     linear-gradient(135deg, hsl(0, 0%, 100%) 10%, hsla(12, 95%, 42%, 0) 80%),
-    linear-gradient(225deg, hsl(207, 100%, 64%) 10%, hsla(0, 0%, 0%, 0) 80%),
+    linear-gradient(93.51deg, #9B51E0 2.84%, #3081ED 99.18%),
     linear-gradient(315deg, hsl(0, 0%, 0%) 100%, hsla(119, 96%, 49%, 0) 70%);
 }
 
@@ -120,14 +120,19 @@ body {
   box-shadow: 0 0 0 2em transparent;
 }
 
+a {
+  color: #9B51E0;
+  text-decoration: none;
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 var(--hover);
   }
 }
 .pulse {
-  --color: #11caf8;
-  --hover: #217aff;
+  --color: #8d22f2;
+  --hover: #9B51E0;
 }
 
 button {
@@ -147,5 +152,7 @@ button {
   line-height: 1;
   margin: 0.5em;
   margin-top: 5px;
-  padding: 1em 2em;
+  padding: 0.5em 2em;
+  margin-bottom: 20px;
+  width: 85%;
 }

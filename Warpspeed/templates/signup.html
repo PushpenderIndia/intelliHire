@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>intelliHIRE | Sign Up!</title>
+  <link rel="stylesheet" href="/static/css/signup.css">
+
+</head>
+<body>
+<div class="form_wrapper">
+  <div class="form_container">
+    <div class="title_container">
+      <h2>Sign Up!</h2>
+    </div>
+    <div class="row clearfix">
+      <div class="">
+        <form method="post">
+          {% csrf_token %}
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+            <input type="text" name="username" placeholder="Username" required />
+          </div>
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" name="password" placeholder="Password" required />
+          </div>
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input type="password" name="confirm_password" placeholder="Re-type Password" required />
+          </div>
+          <div class="row clearfix">
+            <div class="col_half">
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="first_name" placeholder="First Name" />
+              </div>
+            </div>
+            <div class="col_half">
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="last_name" placeholder="Last Name" required />
+              </div>
+            </div>
+          </div>
+          {% if messages %}
+            {% for message in messages %}
+            <p><strong>{{ message }}</strong></p>
+            {% endfor %}
+          {% endif %}
+
+          <input class="button" type="submit" value="Register" />
+          <p align="center">Already Have an Account? <a href="/login">Login</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='https://use.fontawesome.com/4ecc3dbb0b.js'></script>
+</body>
+</html>

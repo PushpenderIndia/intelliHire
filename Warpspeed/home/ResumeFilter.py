@@ -36,7 +36,6 @@ class ResumeFilter:
 
         self.find_top_matched_applicants(matched_texts, text_list)
 
-
     def generate_skills(self):
         prompt = f"List the top 10 skills required for a {self.job_role}"
         response = openai.Completion.create(
@@ -74,8 +73,6 @@ class ResumeFilter:
         top_matched_texts = [text[0] for text in matched_texts[:3]]
         top_matched_files = [matched_files[text_list.index(text)] for text in top_matched_texts]
         return top_matched_files
-
-
 
 if __name__ == "__main__":
     # Example usage
