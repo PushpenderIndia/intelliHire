@@ -31,3 +31,13 @@ class Applicant(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Shortlisted(models.Model):
+    username = models.CharField(max_length=255)
+    job_role = models.CharField(max_length=255)
+    recruiter_username = models.CharField(max_length=255)
+    no_of_questions = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.username} - {self.job_role} ({self.recruiter_username})"

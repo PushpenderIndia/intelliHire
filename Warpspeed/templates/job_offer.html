@@ -98,13 +98,13 @@
             </div>
             <div class="bottom-container">
                 <div class="bottom-container__left">
-                    {% if recruiter %}
+                    {% if job_offer %}
                     <div class="all">
                         <div class="cards">
-                            {% for data in recruiter %}
+                            {% for data in job_offer %}
                           <div class="card shadow-1">
                             <b>Job Role</b>: {{ data.job_role }}</br>
-                            <b>Quiz Test Link</b>: {{ data.no_of_applicant }}</br>
+                            <b>Quiz Test Link</b>: <a href="/quiz?quiz_id={{ data.id }}">Click Me</a></br>
                           </div>
                           {% endfor %}
                         </div>

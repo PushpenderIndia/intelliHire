@@ -1,13 +1,17 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from .models import User 
 from .models import Recruiter
 from .models import Applicant
+from .models import Shortlisted
 from .forms import RecruiterForm
 from home.ResumeFilter import ResumeFilter
+from home.QuizGenerator import QuizGeneratorAI
 
 openai_key = "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"
 
@@ -109,7 +113,10 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 def job_offers(request):
-    return render(request, "job_offer.html")
+    context = {}
+    job_offer = Shortlisted.objects.filter(username=request.user)
+    context["job_offer"] = job_offer
+    return render(request, "job_offer.html", context)
 
 def potential_applicant(request):
     context = {}
@@ -120,7 +127,9 @@ def potential_applicant(request):
     mega_selected_names = {}
     for data in RecruiterData:
         job_role    = data.job_role
+        recruiter   = data.owner 
         top_n = data.no_of_applicant
+        no_of_questions = data.no_of_questions
         additional_skills_list = data.additional_skills
 
         generator = ResumeFilter(resume_list, job_role, openai_key, additional_skills_list, top_n)
@@ -130,12 +139,15 @@ def potential_applicant(request):
         for path in top_matched_files:
             applicant = Applicant.objects.get(resume_path=path.split("/")[-1])
             selected_names.append(applicant.owner)
+            if Shortlisted.objects.filter(username=applicant.owner, job_role=job_role, recruiter_username=recruiter) != None:
+                Shortlisted(username=applicant.owner, job_role=job_role, recruiter_username=recruiter, no_of_questions=no_of_questions).save()
         print("selected_names: ", selected_names)
+        
         mega_selected_names[job_role] = selected_names
 
     context["selected_names"] = mega_selected_names
     print("selected_names: ", mega_selected_names)
-
+    
     return render(request, "potential_applicant.html", context)
 
 def start_quiz(request):
@@ -145,4 +157,13 @@ def end_quiz(request):
     return render(request, "end_quiz.html")
 
 def main_quiz(request):
-    return render(request, "quiz.html")
+    context = {}
+    quiz_id = int(request.GET["quiz_id"])
+    quiz_data = Shortlisted.objects.get(id=quiz_id)
+    job_role = quiz_data.job_role
+    num_questions = quiz_data.no_of_questions
+
+    quiz_generator = QuizGeneratorAI(job_role.lower(), num_questions, openai_key)
+    # questions = quiz_generator.generate_quiz()
+    context["quiz_id"] = quiz_id
+    return render(request, "quiz.html", context)
