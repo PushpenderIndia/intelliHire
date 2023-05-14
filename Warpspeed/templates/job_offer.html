@@ -104,7 +104,7 @@
                             {% for data in job_offer %}
                           <div class="card shadow-1">
                             <b>Job Role</b>: {{ data.job_role }}</br>
-                            <b>Quiz Test Link</b>: <a href="/quiz?quiz_id={{ data.id }}">Click Me</a></br>
+                            <b>Quiz Test Link</b>: <a href="/start_quiz?quiz_id={{ data.id }}">Click Me</a></br>
                           </div>
                           {% endfor %}
                         </div>

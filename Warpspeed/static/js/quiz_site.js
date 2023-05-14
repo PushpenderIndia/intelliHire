@@ -1,3 +1,26 @@
+// Right click disable 
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault(); // Prevent the default right-click behavior
+});
+
+
+// Open the current page in full screen mode
+function openFullscreen() {
+  const element = document.documentElement;
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+
+// Exit full screen mode when the quiz is finished
+function exitQuizFullscreen() {
+  document.exitFullscreen();
+}
+
 let questions = [
   {"id":1, "question":"What is the name of the company that developed Hadoop?", "options": ["a. Yahoo!", "b. Google", "c. Amazon", "d. Facebook"], "answer": "a. Yahoo!" }, 
   {"id":2, "question":"What is the main use for Hadoop?", "options": ["a. To process large data sets in a parallel, distributed computing environment.", "b. To store large data sets in a parallel, distributed file system.", "c. To process and analyze log files from web servers.", "d. To provide a parallel, distributed SQL database."], "answer": "a. To process large data sets in a parallel, distributed computing environment." }, 
@@ -20,6 +43,7 @@ function next() {
   if (question_count == questions.length - 1) {
     sessionStorage.setItem("time", time);
     clearInterval(mytime);
+    exitQuizFullscreen()
     location.href = "/end_quiz";
   }
   console.log(question_count);
