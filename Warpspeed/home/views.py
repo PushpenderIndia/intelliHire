@@ -12,6 +12,7 @@ from .models import Shortlisted
 from .forms import RecruiterForm
 from home.ResumeFilter import ResumeFilter
 from home.QuizGenerator import QuizGeneratorAI
+from home.OpenAIInterview import OpenAIInterview
 
 openai_key = "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"
 
@@ -151,7 +152,9 @@ def potential_applicant(request):
     return render(request, "potential_applicant.html", context)
 
 def start_quiz(request):
-    return render(request, "start_quiz.html")
+    quiz_id = request.GET["quiz_id"]
+    context = {"quiz_id": quiz_id}
+    return render(request, "start_quiz.html", context)
 
 def end_quiz(request):
     return render(request, "end_quiz.html")
@@ -167,3 +170,12 @@ def main_quiz(request):
     # questions = quiz_generator.generate_quiz()
     context["quiz_id"] = quiz_id
     return render(request, "quiz.html", context)
+
+def interview(request):
+    context = {}
+    interview = OpenAIInterview(openai_key)
+    job_role  = request.GET["job_role"]
+    num_questions = int(request.GET["ques_count"])
+    questions, answers, ratings = interview.generate_questions(job_role, num_questions)
+    # pprint.pprint(interview.response)
+    return render(request, "interview.html", context)

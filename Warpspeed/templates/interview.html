@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>intelliHIRE | Interview </title>
+	<style>
+		body {
+			background-color: white;
+		}
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+	</style>
+    <audio id="myAudio" controls>
+        <source src="/static/audio.wav" type="audio/wav">
+    </audio>
+
+	<script>
+		var images = ["/static/img/Idle.gif", "/static/img/Talking.gif"]; // array of image file names
+		var currentImage = 0; // index of the current image
+		var interval = 5000; // interval between image changes in milliseconds
+
+		function changeImage() {
+			var img = document.getElementById("gif");
+			currentImage++;
+			if (currentImage >= images.length) {
+				currentImage = 0;
+			}
+			img.src = images[currentImage];
+			setTimeout(changeImage, interval);
+		}
+
+		window.onload = function() {
+			setTimeout(changeImage, interval);
+		};
+
+        var audio = document.getElementById("myAudio");
+        audio.play();
+	</script>
+</head>
+<body>
+	<img id="gif" src="/static/img/Idle.gif" alt="gif image" width="1152px" height="628px">
+</body>
+</html>

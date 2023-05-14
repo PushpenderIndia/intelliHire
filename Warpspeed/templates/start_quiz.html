@@ -12,14 +12,11 @@
 <body>
     <div class="wrapper">
         <div class="welcome_text">
-            <form class="welcome_form" name="welcome_form" onsubmit="submitForm(event)">
+            <form class="welcome_form" name="welcome_form">
                 <h2 class="greet">Hi {{user.first_name}}! click on "Start Quiz" button</h2><br>
-                <button>Start Quiz</button>
+                <button onclick="window.location.href='/quiz?quiz_id={{quiz_id}}'">Start Quiz</button>
             </form>
         </div>
     </div>
-
-    <!-- site.js -->
-    <script src="/static/js/quiz_start.js"></script>
 </body>
 </html>

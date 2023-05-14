@@ -14,4 +14,5 @@ urlpatterns = [
     path("start_quiz", views.start_quiz, name="start_quiz"),
     path("quiz", views.main_quiz, name="quiz"),
     path("end_quiz", views.end_quiz, name="end_quiz"),
+    path("interview", views.interview, name="interview"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
