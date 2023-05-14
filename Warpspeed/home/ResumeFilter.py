@@ -34,7 +34,8 @@ class ResumeFilter:
                     count += 1
             matched_texts.append(count)
 
-        self.find_top_matched_applicants(matched_texts, text_list)
+        top_matched_files = self.find_top_matched_applicants(matched_texts, text_list)
+        return top_matched_files
 
     def generate_skills(self):
         prompt = f"List the top 10 skills required for a {self.job_role}"
@@ -70,7 +71,7 @@ class ResumeFilter:
         matched_texts = [(text_list[i], matched_texts[i]) for i in range(len(text_list)) if matched_texts[i] > 0]
 
         matched_texts.sort(key=lambda x: x[1], reverse=True)
-        top_matched_texts = [text[0] for text in matched_texts[:3]]
+        top_matched_texts = [text[0] for text in matched_texts[:self.top_n]]
         top_matched_files = [matched_files[text_list.index(text)] for text in top_matched_texts]
         return top_matched_files
 
@@ -78,10 +79,12 @@ if __name__ == "__main__":
     # Example usage
     job_role   = "Data Scientist"
     openai_key = "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"
-    additional_skills_list = ["Python"]
+    additional_skills_list = ["Python", "django"]
+    resume_list = ["Divya.pdf", "Neha.pdf"]
+    top_n = 1
 
     print(f"Job Role: {job_role}")
-    generator = ResumeFilter(job_role, openai_key, additional_skills_list)
-    skills = generator.generate_skills()
-    print(skills)
+    generator = ResumeFilter(resume_list, job_role, openai_key, additional_skills_list, top_n)
+    top_matched_files = generator.start()
+    print(top_matched_files)
 

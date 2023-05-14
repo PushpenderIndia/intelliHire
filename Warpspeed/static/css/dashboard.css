@@ -90,6 +90,10 @@ a:hover {
     margin-left: 14px;
 }
 
+.message_text {
+    color: #9B51E0;
+}
+
 .side-nav {
     display: flex;
     flex-direction: column;

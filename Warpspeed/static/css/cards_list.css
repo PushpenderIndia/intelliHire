@@ -1,0 +1,174 @@
+.shadow-1:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.13);
+  border: 5px solid #9B51E0;
+}
+
+.shadow-1:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+  border: 5px solid #9B51E0;
+}
+
+.shadow-2:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-2:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-3:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.12);
+}
+
+.shadow-3:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 17px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-4:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.11);
+}
+
+.shadow-4:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 25px 55px 0 rgba(0, 0, 0, 0.11);
+}
+
+.shadow-5:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-5:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: inherit;
+  height: inherit;
+  z-index: -2;
+  box-sizing: border-box;
+  box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.11);
+}
+
+.card {
+  position: relative;
+  height: 180px;
+  background: #fcfcfc;
+  margin: 20px 40px;
+  transition: 0.4s all;
+  padding: 10px;
+  border: 5px solid #9B51E0;
+}
+
+.card.open {
+  height: 200px;
+  background: #ffffff;
+}
+
+@media only screen and (min-width: 600px) {
+  .card {
+  width:500px;
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 15px;
+  }
+}
+
+@media only screen and (max-device-width: 800px) and (orientation: portrait) {
+  .card {
+    margin: 12px 10px;
+    padding: 15px;
+  }
+}
