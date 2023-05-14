@@ -7,17 +7,16 @@ WarSpeed Hackathon By Lightspeed organised at 13 May 2023
 
 ## Features for Company
 
-- CV Filteration 
-    - [ ] Takes Job Role, Uses OpenAI to generate important skills keywords 
-    - [ ] PDF/Docx resume converted Text
-    - [ ] Additional Keyword list supplied by recruiter (optional) merged with openai keywordlist
-    - [ ] Keyword search and filtering Top N applications
+- CV Filteration: `ResumeFilter.py`
+    - [X] Takes Job Role, Uses OpenAI to generate important skills keywords 
+    - [X] PDF/Docx resume converted Text
+    - [X] Additional Keyword list supplied by recruiter (optional) merged with openai keywordlist
+    - [X] Keyword search and filtering Top N applications
     - [ ] Sending quiz test link to Top N applicants
 
-- Quiz Test
-    - [ ] Takes Job Role & Skill Keywords Matched and generates question using OpenAI
-    - [ ] Generate 
-    - [ ] Timer for each question (10 Sec Each)
+- Quiz Test: `QuizGenerator.py`
+    - [X] Takes Job Role and generates question using OpenAI
+    - [X] Timer for each question (10 Sec Each)
     - [ ] NLP powered Quiz for Blind (Disabled)
     - [ ] Anti Cheat Mechanism (**Less Priority**)
       - [ ] Showing Quiz in Full Screen
@@ -25,9 +24,9 @@ WarSpeed Hackathon By Lightspeed organised at 13 May 2023
       - [ ] Forbid Screen Toggle
       - [ ] Using Computer Vision to Detect Face Moment
       
-- Virtual 3D AI Interviewer (HR) (**High Priority**)
+- Virtual 3D AI Interviewer (HR) (**High Priority**): `Generate3DVideo.py`
     - [ ] Uses OpenAI to generate HR Interview questions
-    - [ ] Converting Text to Vocal
+    - [ ] Converting Text to Vocal 
     - [ ] Syncing Vocal to 3D Model and Generating Video
     - [ ] Giving Chance to applicant to give answer in text or voice
 
@@ -39,6 +38,11 @@ WarSpeed Hackathon By Lightspeed organised at 13 May 2023
 - `Auto Matching resume to Job Opening`, No Need to Apply for Companies 
 - Predicting `Success Rate` for particular `Job Opening using ML Model`
 - Quiz Test for Disabled (Blind)
+
+## Pages
+- [ ] /
+- [X] /login
+- [X] /dashboard
 
 ## Hackathon Teammate
 <table>
