@@ -7,7 +7,9 @@ from .models import User
 from .models import Recruiter
 from .models import Applicant
 from .forms import RecruiterForm
+from home.ResumeFilter import ResumeFilter
 
+openai_key = "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"
 
 def index(request):
     return render(request, "index.html")
@@ -111,6 +113,36 @@ def job_offers(request):
 
 def potential_applicant(request):
     context = {}
-    context['recruiter'] = Recruiter.objects.filter(owner=request.user)
+    RecruiterData = Recruiter.objects.filter(owner=request.user)
+    context['recruiter'] = RecruiterData
+    resume_list = Applicant.objects.values_list('resume_path', flat=True)
+    
+    mega_selected_names = {}
+    for data in RecruiterData:
+        job_role    = data.job_role
+        top_n = data.no_of_applicant
+        additional_skills_list = data.additional_skills
+
+        generator = ResumeFilter(resume_list, job_role, openai_key, additional_skills_list, top_n)
+        top_matched_files = generator.start()
+        print("top_matched_files: ", top_matched_files)
+        selected_names = []
+        for path in top_matched_files:
+            applicant = Applicant.objects.get(resume_path=path.split("/")[-1])
+            selected_names.append(applicant.owner)
+        print("selected_names: ", selected_names)
+        mega_selected_names[job_role] = selected_names
+
+    context["selected_names"] = mega_selected_names
+    print("selected_names: ", mega_selected_names)
+
     return render(request, "potential_applicant.html", context)
 
+def start_quiz(request):
+    return render(request, "start_quiz.html")
+
+def end_quiz(request):
+    return render(request, "end_quiz.html")
+
+def main_quiz(request):
+    return render(request, "quiz.html")

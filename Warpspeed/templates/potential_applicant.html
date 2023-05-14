@@ -114,6 +114,18 @@
                         </div>
                     </div>
                     {% endif %}
+                    <br><br>
+                    
+                    {% if selected_names %}
+                    <h2>Shortlisted Resume</h2>
+                    {% for key,value in selected_names.items %}
+                        <br>
+                        <h4>{{ forloop.counter}}. Job Role: {{key}}</h4><br>
+                        {% for username in value %}
+                            <li> {{username}}</li>    
+                        {% endfor %}
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </main>

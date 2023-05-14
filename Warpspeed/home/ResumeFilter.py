@@ -21,18 +21,21 @@ class ResumeFilter:
         matched_texts = []
         text_list     = []
         for resume_file in self.resume_list:
-            if resume_file.split(".")[-1] == "docx":
-                text = self.docx_to_text(resume_file) 
-            elif resume_file.split(".")[-1] == "pdf":
-                text = self.pdf_to_text(resume_file)
+            try:
+                if resume_file.split(".")[-1] == "docx":
+                    text = self.docx_to_text(resume_file) 
+                elif resume_file.split(".")[-1] == "pdf":
+                    text = self.pdf_to_text(resume_file)
 
-            text = text.lower()
-            text_list.append(text)
-            count = 0
-            for keyword in self.keyword_list:
-                if keyword in text:
-                    count += 1
-            matched_texts.append(count)
+                text = text.lower()
+                text_list.append(text)
+                count = 0
+                for keyword in self.keyword_list:
+                    if keyword in text:
+                        count += 1
+                matched_texts.append(count)
+            except Exception as e:
+                print(f"Error [ResumeFilter]: {e}")
 
         top_matched_files = self.find_top_matched_applicants(matched_texts, text_list)
         return top_matched_files

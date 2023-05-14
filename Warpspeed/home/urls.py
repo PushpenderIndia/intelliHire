@@ -11,4 +11,7 @@ urlpatterns = [
     path("dashboard", views.dashboard, name="dashboard"),
     path("job_offers", views.job_offers, name="job_offers"),
     path("potential_applicant", views.potential_applicant, name="potential_applicant"),
+    path("start_quiz", views.start_quiz, name="start_quiz"),
+    path("quiz", views.main_quiz, name="quiz"),
+    path("end_quiz", views.end_quiz, name="end_quiz"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
