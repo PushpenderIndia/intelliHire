@@ -40,4 +40,17 @@ class Shortlisted(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.username} - {self.job_role} ({self.recruiter_username})"
+        return f"{self.id} - {self.username} - {self.job_role} ({self.recruiter_username})"
+    
+class InterviewRecord(models.Model):
+    username = models.CharField(max_length=255)
+    job_role = models.CharField(max_length=255)
+    total_ques_to_ask = models.IntegerField()
+    question_index = models.IntegerField()
+    question       = models.CharField(max_length=255)
+    user_response  = models.CharField(max_length=255)
+    ai_rating      = models.IntegerField()
+
+
+
+

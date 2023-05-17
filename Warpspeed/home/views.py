@@ -4,17 +4,22 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.conf import settings
+import os 
 from django.core.files.storage import FileSystemStorage
 from .models import User 
 from .models import Recruiter
 from .models import Applicant
 from .models import Shortlisted
+from .models import InterviewRecord
 from .forms import RecruiterForm
 from home.ResumeFilter import ResumeFilter
 from home.QuizGenerator import QuizGeneratorAI
 from home.OpenAIInterview import OpenAIInterview
+from home.AudioToText import AudioToTextConverter
 
-openai_key = "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"
+
+openai_key = "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"
 
 def index(request):
     return render(request, "index.html")
@@ -175,11 +180,70 @@ def main_quiz(request):
     context["quiz_id"] = quiz_id
     return render(request, "quiz.html", context)
 
+@csrf_exempt
+def ask_follow_ups(request):
+    try:
+        voice      = request.POST["voice"]
+        interview_id = request.POST["interview_id"]
+        question_no = request.POST["question_no"]
+
+        print("User Audio Response: ", voice)
+        audio_converter    = AudioToTextConverter(voice)
+        user_response_text = audio_converter.convert_to_text()
+
+        static_folder_path = os.path.join(settings.BASE_DIR, settings.STATICFILES_DIRS[0])
+        interview = OpenAIInterview(openai_key, interview_id, static_folder_path)
+        rating = interview.rate_answer(user_response_text)
+        output_file_url, follow_up_question = interview.generate_follow_up_question(user_response_text)
+
+        shortlisted_row = Shortlisted.objects.filter(id=interview_id, username=request.user.username).first()
+        # Updating UserResponse & Rating of Previous Question
+        InterviewRecord.objects.filter(
+            username          = request.user.username,
+            job_role          = shortlisted_row.job_role,
+            question_index    = question_no).update(user_response=user_response_text, ai_rating=rating)
+        
+        # Saving New Follow Up Question to DB
+        question_no += 1
+        InterviewRecord(
+            username          = request.user.username,
+            job_role          = shortlisted_row.job_role,
+            total_ques_to_ask = shortlisted_row.no_of_questions,
+            question_index    = question_no,
+            question          = follow_up_question,
+            user_response     = "",
+            ai_rating         = 0).save()
+        
+        response_type = 200
+    except Exception as e:
+        print("Error: ", e)
+        response_type = 500
+        output_file_url = ""
+    return JsonResponse({"response": output_file_url, "type": response_type})
+
 def interview(request):
     context = {}
-    interview = OpenAIInterview(openai_key)
-    job_role  = request.GET["job_role"]
-    num_questions = int(request.GET["ques_count"])
-    questions, answers, ratings = interview.generate_questions(job_role, num_questions)
-    # pprint.pprint(interview.response)
+    interview_id = request.GET["id"]
+    shortlisted_row = Shortlisted.objects.filter(id=interview_id, username=request.user.username).first()
+    job_role      = shortlisted_row.job_role
+    total_questions_to_ask = int(shortlisted_row.no_of_questions)
+
+    static_folder_path = os.path.join(settings.BASE_DIR, settings.STATICFILES_DIRS[0])
+    interview = OpenAIInterview(openai_key, interview_id, static_folder_path)
+    output_file_url, first_question = interview.ask_first_question(job_role)
+    print(f"First Ques: {first_question}")
+    print(f"First Ques Audio URL: {output_file_url}")
+    context["first_question"] = first_question
+    context["total_questions_to_ask"] = total_questions_to_ask
+    context["first_audio"] = output_file_url
+
+    InterviewRecord(
+        username          = request.user.username,
+        job_role          = shortlisted_row.job_role,
+        total_ques_to_ask = shortlisted_row.no_of_questions,
+        question_index    = 1,
+        question          = first_question,
+        user_response     = "",
+        ai_rating         = 0).save()
+
     return render(request, "interview.html", context)

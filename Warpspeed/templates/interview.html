@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>intelliHIRE | Interview </title>
-	<style>
-		body {
-			background-color: white;
-		}
-		img {
-			display: block;
-			margin: 0 auto;
-		}
-	</style>
-    <audio id="myAudio" controls>
-        <source src="/static/audio.wav" type="audio/wav">
-    </audio>
-
-	<script>
-		var images = ["/static/img/Idle.gif", "/static/img/Talking.gif"]; // array of image file names
-		var currentImage = 0; // index of the current image
-		var interval = 5000; // interval between image changes in milliseconds
-
-		function changeImage() {
-			var img = document.getElementById("gif");
-			currentImage++;
-			if (currentImage >= images.length) {
-				currentImage = 0;
-			}
-			img.src = images[currentImage];
-			setTimeout(changeImage, interval);
-		}
-
-		window.onload = function() {
-			setTimeout(changeImage, interval);
-		};
-
-        var audio = document.getElementById("myAudio");
-        audio.play();
-	</script>
+  <title>Meet UI</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+	
+  </style>
+  <link rel="stylesheet" href="/static/css/interview.css">
 </head>
 <body>
-	<img id="gif" src="/static/img/Idle.gif" alt="gif image" width="1152px" height="628px">
+  <div id="gif-box"></div>
+  <p id="hiddenQues" style="display: none;">{{first_question}}</p>
+  <button id="start_interview">Start Interview</button>
+  <button id="speak-button" style="display: none;">Speak</button>
+
+  <script src="/static/js/interview.js"></script>
+  <script>playFirstQuestion("{{first_audio}}", "{{total_questions_to_ask}}")</script>
 </body>
 </html>
