@@ -1,4 +1,4 @@
-# WarSpeed
+# intelliHire
 WarSpeed Hackathon By Lightspeed organised at 13 May 2023
 
 > intelliHIRE -  One Stop Solution For Hiring & Getting Hired!
